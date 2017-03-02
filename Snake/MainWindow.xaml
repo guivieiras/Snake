@@ -1,0 +1,45 @@
+﻿<Window x:Class="Snake.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Snake"
+        mc:Ignorable="d"
+        Title="Snake" 
+        Height="735" 
+        Width="720" 
+        KeyDown="Window_KeyDown" 
+        WindowStartupLocation="CenterScreen" 
+        SizeChanged="Window_SizeChanged" 
+        WindowStyle="None"
+        ResizeMode="NoResize" 
+        BorderBrush="DarkGray"
+
+        BorderThickness="1">
+
+    <Window.Resources>
+
+
+    </Window.Resources>
+    <Grid>
+
+        <Grid Height="35"  VerticalAlignment="Top" Background="White">
+            <Button x:Name="button" Content="Tema" HorizontalAlignment="Left" Margin="8,7,0,0" VerticalAlignment="Top" Width="75" Click="button_Click" Focusable="False"/>
+            <Label x:Name="velocidade" Content="50" HorizontalAlignment="Center" Margin="337,6,352,0" VerticalAlignment="Top"/>
+            <Button x:Name="btn1" Content="-" HorizontalAlignment="Left" Margin="309,1,0,0" VerticalAlignment="Top"  Click="btn1_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Foreground="Black" FontSize="20" BorderThickness="1" Focusable="False"/>
+            <Button x:Name="btn2" Content="+" HorizontalAlignment="Left" Margin="386,1,0,0" VerticalAlignment="Top"  Click="btn1_Click" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Foreground="Black" FontSize="20" BorderThickness="1" Focusable="False"/>
+            <CheckBox x:Name="parede_CBox" Content="Parede fechada" HorizontalAlignment="Left" Margin="487,11,0,0" VerticalAlignment="Top" Checked="parede_CBox_Changed" Unchecked="parede_CBox_Changed" Focusable="False"/>
+            <CheckBox x:Name="musica_CBox" Content="Musica" HorizontalAlignment="Left" Margin="138,0,0,9" VerticalAlignment="Bottom" Checked="musica_CBox_Changed" Unchecked="musica_CBox_Changed" IsChecked="True" Focusable="False"/>
+
+        </Grid>
+        <Border x:Name="border" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,70,0,0">
+            <Border.LayoutTransform>
+                <ScaleTransform ScaleX="2" ScaleY="2"></ScaleTransform>
+            </Border.LayoutTransform>
+            <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="300">
+
+                <!--Polyline x:Name="Poly" Stroke="Black" StrokeThickness="10"  /-->
+            </Canvas>
+        </Border>
+    </Grid>
+</Window>
