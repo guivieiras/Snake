@@ -88,9 +88,12 @@ namespace Snake
         //Tick do jogo 
         private void T_Elapsed(object sender, ElapsedEventArgs e)
         {
-            Dispatcher.Invoke(() => {
-                game.tick2();              
-            });                      
+            //To avoid error on closing game
+            try {
+                Dispatcher.Invoke(() => {
+                    game.tick2();
+                });
+            } catch { }           
         }
 
         //Inicia o jogo
@@ -208,65 +211,23 @@ namespace Snake
             //  player.Stop();        
         }
 
-        #region Meh
-        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
-        {
-            // if (sizeInfo.WidthChanged && ActualWidth / aspect != ActualHeight)
-            //      this.Width = sizeInfo.NewSize.Height * aspect;
-            //  else this.Height = sizeInfo.NewSize.Width / aspect;
-
-
-            // ((ScaleTransform)canvas.LayoutTransform).ScaleX = this.Width / 350;
-            // ((ScaleTransform)canvas.LayoutTransform).ScaleY = this.Width / 350;
+        bool isPressed = false;
+        private void Grid_MouseMove(object sender, MouseEventArgs e) {
+            if (isPressed)
+                DragMove();
         }
-        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
 
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e) {
+            isPressed = true;
         }
-        const double aspect = 350 / 400.0;
-        //Inside dispatcher method run
-        /* if (game.rects.Count() % 10 == 0)
-                {
-                    bmpCout++;
-                    var image = rsr[bmpCout];
-                    var bitmap = new System.Drawing.Bitmap(image);
-                    var bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(bitmap.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-                    bitmap.Dispose();
-                    var brush = new ImageBrush(bitmapSource);
 
-                    canvas.Background = brush;
-                }*/
+        private void Grid_MouseUp(object sender, MouseButtonEventArgs e) {
+            isPressed = false;
+        }
 
-        /*Bitmap[] rsr = new[] {
-           Properties.Resources.p17,
-           Properties.Resources.p16,
-           Properties.Resources.p15,
-           Properties.Resources.p14,
-           Properties.Resources.p13,
-           Properties.Resources.p12,
-           Properties.Resources.p11,
-                  Properties.Resources.p10,
-                   Properties.Resources.p9,
-                    Properties.Resources.p8,
-                     Properties.Resources.p7,
-                      Properties.Resources.p6,
-                       Properties.Resources.p5,
-                        Properties.Resources.p4,
-                         Properties.Resources.p3,
-                          Properties.Resources.p2,
-                           Properties.Resources.p1,
-                            Properties.Resources.p0,
-       };*/
-
-        //Inside constructor
-        /* var image = Properties.Resources.p17;
-            var bitmap = new System.Drawing.Bitmap(image);
-            var bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(bitmap.GetHbitmap(),   IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions() );
-            bitmap.Dispose();
-            var brush = new ImageBrush(bitmapSource);
-
-            canvas.Background = brush;*/
-        #endregion
-
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+           player.Stop();
+           player.Close();
+        }
     }
 }
